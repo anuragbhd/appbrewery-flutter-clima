@@ -18,3 +18,5 @@ const kButtonTextStyle = TextStyle(
 const kConditionTextStyle = TextStyle(
   fontSize: 100.0,
 );
+
+const kOpenWeatherApiKey = '1ceed5457e5acd257a893ce3c6010cc4';
