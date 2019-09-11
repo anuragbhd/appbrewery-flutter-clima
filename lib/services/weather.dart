@@ -47,4 +47,14 @@ class WeatherModel {
     var weatherData = await netHelper.getData();
     return weatherData;
   }
+
+  Future<dynamic> getCityWeather(cityName) async {
+    NetworkHelper netHelper = NetworkHelper(
+      url: '$kOpenWeatherApiUrl?'
+          'q=$cityName'
+          '&units=metric&appid=$kOpenWeatherApiKey',
+    );
+    var weatherData = await netHelper.getData();
+    return weatherData;
+  }
 }
