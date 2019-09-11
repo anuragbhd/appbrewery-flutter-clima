@@ -19,4 +19,5 @@ const kConditionTextStyle = TextStyle(
   fontSize: 100.0,
 );
 
+const kOpenWeatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather';
 const kOpenWeatherApiKey = '1ceed5457e5acd257a893ce3c6010cc4';

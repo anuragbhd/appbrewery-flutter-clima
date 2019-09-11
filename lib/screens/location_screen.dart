@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
+import 'package:clima/services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
+  final locationWeather;
+
+  LocationScreen({this.locationWeather});
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  int temperature;
+  String weatherIcon;
+  String cityName;
+  String weatherMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    this.updateUI(this.widget.locationWeather);
+  }
+
+  void updateUI(dynamic weatherData) {
+    this.setState(() {
+      double temp = weatherData['main']['temp'];
+      var condition = weatherData['weather'][0]['id'];
+      WeatherModel weatherModel = WeatherModel();
+      this.temperature = temp.toInt();
+      this.weatherIcon = weatherModel.getWeatherIcon(condition);
+      this.cityName = weatherData['name'];
+      this.weatherMessage = weatherModel.getMessage(this.temperature);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +77,11 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '${this.temperature}°',
                       style: kTempTextStyle,
                     ),
                     Text(
-                      '☀️',
+                      this.weatherIcon,
                       style: kConditionTextStyle,
                     ),
                   ],
@@ -62,7 +90,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  '${this.weatherMessage} in ${this.cityName}!',
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
